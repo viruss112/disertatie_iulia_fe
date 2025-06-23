@@ -8,13 +8,22 @@ import {
   ApexTitleSubtitle,
   ChartComponent
 } from 'ng-apexcharts';
+import { NgForOf, NgIf } from '@angular/common';
+
+interface Notification {
+  type: 'Humidity' | 'Temperature' | 'Proximity' | 'Light';
+  message: string;
+  timestamp: string; // Add timestamp property
+}
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   standalone: true,
   imports: [
-    ChartComponent
+    ChartComponent,
+    NgIf,
+    NgForOf
   ],
   styleUrls: ['./homepage.component.css']
 })
@@ -28,7 +37,6 @@ export class HomepageComponent implements OnInit {
     lastLogin: string;
     userRole: string;
   } | null = null;
-
 
   humidities: { value: number; measuredOn: string }[] = [];
   temperatures: { value: number; measuredOn: string }[] = [];
@@ -209,6 +217,7 @@ export class HomepageComponent implements OnInit {
           value: formattedHumidity,
           measuredOn: formattedTimestamp
         });
+        this.checkValues();
       });
 
       // Subscribe to temperature topic
@@ -285,41 +294,41 @@ export class HomepageComponent implements OnInit {
         });
       });
 
-        // Subscribe to light topic
-        this.stompClient?.subscribe('/topic/light', (message) => {
-          const data = JSON.parse(message.body);
+      // Subscribe to light topic
+      this.stompClient?.subscribe('/topic/light', (message) => {
+        const data = JSON.parse(message.body);
 
-          // Format light value to 1 decimal place
-          const formattedLight = parseFloat(parseFloat(data.light.value).toFixed(1));
+        // Format light value to 1 decimal place
+        const formattedLight = parseFloat(parseFloat(data.light.value).toFixed(1));
 
-          // Convert timestamp to readable date-time format
-          const formattedTimestamp = new Date(data.light.measuredOn).toLocaleString();
+        // Convert timestamp to readable date-time format
+        const formattedTimestamp = new Date(data.light.measuredOn).toLocaleString();
 
-          // Update light chart data
-          const updatedLightCategories = [...this.lightChartOptions.xaxis.categories, formattedTimestamp];
-          const updatedLightSeries = [
-            {
-              name: 'Light',
-              data: [...(this.lightChartSeries[0].data as number[]), formattedLight]
-            }
-          ];
+        // Update light chart data
+        const updatedLightCategories = [...this.lightChartOptions.xaxis.categories, formattedTimestamp];
+        const updatedLightSeries = [
+          {
+            name: 'Light',
+            data: [...(this.lightChartSeries[0].data as number[]), formattedLight]
+          }
+        ];
 
-          // Update light chart options
-          this.lightChartOptions = {
-            ...this.lightChartOptions,
-            xaxis: {
-              ...this.lightChartOptions.xaxis,
-              categories: updatedLightCategories
-            }
-          };
-          this.lightChartSeries = updatedLightSeries as ApexAxisChartSeries;
+        // Update light chart options
+        this.lightChartOptions = {
+          ...this.lightChartOptions,
+          xaxis: {
+            ...this.lightChartOptions.xaxis,
+            categories: updatedLightCategories
+          }
+        };
+        this.lightChartSeries = updatedLightSeries as ApexAxisChartSeries;
 
-          // Update light array for display
-          this.lights.push({
-            value: formattedLight,
-            measuredOn: formattedTimestamp
-          });
+        // Update light array for display
+        this.lights.push({
+          value: formattedLight,
+          measuredOn: formattedTimestamp
         });
+      });
 
     };
 
@@ -329,6 +338,109 @@ export class HomepageComponent implements OnInit {
 
     this.stompClient.activate();
   }
+
+
+  selectedChart: string = 'All'; // Default value is 'All'
+  notifications: Notification[] = [];
+
+  humidityOffset: number = 55;
+  temperatureOffset: number = 28.5;
+  proximityOffset: number = 80;
+  lightOffset: number = 950;
+
+  selectChart(chart: string): void {
+    this.selectedChart = chart; // Update the selected chart
+  }
+
+  humidityNotifications: Notification[] = [];
+  temperatureNotifications: Notification[] = [];
+  proximityNotifications: Notification[] = [];
+  lightNotifications: Notification[] = [];
+
+  checkValues() {
+    // Check the latest humidity value
+    if (this.humidities.length > 0) {
+      const latestHumidity = this.humidities[this.humidities.length - 1].value;
+      if (latestHumidity > this.humidityOffset) {
+        this.humidityNotifications.push({
+          type: 'Humidity',
+          message: `Humidity value (${latestHumidity}) exceeded offset (${this.humidityOffset})!`,
+          timestamp: new Date().toLocaleString() // Add timestamp
+        });
+      }
+    }
+
+    // Check the latest temperature value
+    if (this.temperatures.length > 0) {
+      const latestTemperature = this.temperatures[this.temperatures.length - 1].value;
+      if (latestTemperature > this.temperatureOffset) {
+        this.temperatureNotifications.push({
+          type: 'Temperature',
+          message: `Temperature value (${latestTemperature}) exceeded offset (${this.temperatureOffset})!`,
+          timestamp: new Date().toLocaleString()
+        });
+      }
+    }
+
+    // Check the latest proximity value
+    if (this.proximities.length > 0) {
+      const latestProximity = this.proximities[this.proximities.length - 1].value;
+      if (latestProximity > this.proximityOffset) {
+        this.proximityNotifications.push({
+          type: 'Proximity',
+          message: `Proximity value (${latestProximity}) exceeded offset (${this.proximityOffset})!`,
+          timestamp: new Date().toLocaleString()
+        });
+      }
+    }
+
+    // Check the latest light value
+    if (this.lights.length > 0) {
+      const latestLight = this.lights[this.lights.length - 1].value;
+      if (latestLight > this.lightOffset) {
+        this.lightNotifications.push({
+          type: 'Light',
+          message: `Light value (${latestLight}) exceeded offset (${this.lightOffset})!`,
+          timestamp: new Date().toLocaleString()
+        });
+      }
+    }
+    console.log('Humidity Notifications:', this.humidityNotifications);
+    console.log('Temperature Notifications:', this.temperatureNotifications);
+    console.log('Proximity Notifications:', this.proximityNotifications);
+    console.log('Light Notifications:', this.lightNotifications);
+  }
+
+
+  hasNotifications(): boolean {
+    return (
+      (this.selectedChart === 'Chart1' && this.humidityNotifications.length > 0) ||
+      (this.selectedChart === 'Chart2' && this.temperatureNotifications.length > 0) ||
+      (this.selectedChart === 'Chart3' && this.proximityNotifications.length > 0) ||
+      (this.selectedChart === 'Chart4' && this.lightNotifications.length > 0)
+    );
+  }
+
+  clearNotifications(): void {
+    switch (this.selectedChart) {
+      case 'Chart1':
+        this.humidityNotifications = [];
+        break;
+      case 'Chart2':
+        this.temperatureNotifications = [];
+        break;
+      case 'Chart3':
+        this.proximityNotifications = [];
+        break;
+      case 'Chart4':
+        this.lightNotifications = [];
+        break;
+      default:
+        break;
+    }
+  }
+
+
 
 
 

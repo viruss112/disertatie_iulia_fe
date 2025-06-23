@@ -10,14 +10,17 @@
 }
 
 .register-form {
-  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  top: 50%; /* Centers the form vertically */
+  right: 5%; /* Moves the form to the right */
+  transform: translateY(-50%); /* Adjusts for vertical centering */
+  background: rgba(255, 255, 255, 0.35); /* Transparency from login form */
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15); /* Medium shadow with transparency */
   width: 90%;
   max-width: 300px;
   text-align: center;
-  margin-right: 2rem; /* Add some spacing from the right edge */
 }
 
 .register-form h2 {

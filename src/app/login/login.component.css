@@ -35,15 +35,15 @@
 }
 
 
-.login-form {
+.login-form, .register-form {
   position: absolute;
-  top: 40%; /* Adjusted to move the form further up */
-  right: 5%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.9);
+  top: 50%; /* Centers the form vertically */
+  right: 5%; /* Moves the form to the right */
+  transform: translateY(-50%); /* Adjusts for vertical centering */
+  background: rgba(255, 255, 255, 0.35); /* Transparency */
   padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.25); /* Deeper shadow */
   width: 90%;
   max-width: 300px;
   text-align: center;
@@ -66,7 +66,7 @@ label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: #555555;
+  color: #000000; /* Black color for labels */
 }
 
 input {

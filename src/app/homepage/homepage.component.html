@@ -1,11 +1,19 @@
 <div class="homepage-container">
   <div class="sidebar">
     <h2> Welcome {{ user?.firstName }} {{ user?.lastName }}</h2>
+    <h2>Charts</h2>
+    <ul class="chart-labels">
+      <li (click)="selectChart('All')">Overview</li>
+      <li (click)="selectChart('Chart1')">Humidity</li>
+      <li (click)="selectChart('Chart2')">Temperature</li>
+      <li (click)="selectChart('Chart3')">Proximity</li>
+      <li (click)="selectChart('Chart4')">Light</li>
+    </ul>
   </div>
 
   <div class="charts-container">
-    <!-- First row: Humidity and Temperature -->
-    <div class="row">
+    <!-- Display all charts in a grid -->
+    <div class="grid" *ngIf="selectedChart === 'All'">
       <div class="content">
         <h1>Humidity Chart</h1>
         <apx-chart
@@ -16,7 +24,6 @@
           [title]="chartOptions.title">
         </apx-chart>
       </div>
-
       <div class="content">
         <h1>Temperature Chart</h1>
         <apx-chart
@@ -27,10 +34,6 @@
           [title]="temperatureChartOptions.title">
         </apx-chart>
       </div>
-    </div>
-
-    <!-- Second row: Proximity and Light -->
-    <div class="row">
       <div class="content">
         <h1>Proximity Chart</h1>
         <apx-chart
@@ -41,7 +44,6 @@
           [title]="proximityChartOptions.title">
         </apx-chart>
       </div>
-
       <div class="content">
         <h1>Light Chart</h1>
         <apx-chart
@@ -51,6 +53,88 @@
           [yaxis]="lightChartOptions.yaxis"
           [title]="lightChartOptions.title">
         </apx-chart>
+      </div>
+    </div>
+
+    <!-- Display single charts with notification sidebar -->
+    <div class="chart-with-sidebar" *ngIf="selectedChart !== 'All'">
+      <div class="chart-content">
+        <div class="content" *ngIf="selectedChart === 'Chart1'">
+          <h1>Humidity Chart</h1>
+          <apx-chart
+            [series]="chartSeries"
+            [chart]="chartOptions.chart"
+            [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis"
+            [title]="chartOptions.title">
+          </apx-chart>
+        </div>
+
+        <div class="content" *ngIf="selectedChart === 'Chart2'">
+          <h1>Temperature Chart</h1>
+          <apx-chart
+            [series]="temperatureChartSeries"
+            [chart]="temperatureChartOptions.chart"
+            [xaxis]="temperatureChartOptions.xaxis"
+            [yaxis]="temperatureChartOptions.yaxis"
+            [title]="temperatureChartOptions.title">
+          </apx-chart>
+        </div>
+
+        <div class="content" *ngIf="selectedChart === 'Chart3'">
+          <h1>Proximity Chart</h1>
+          <apx-chart
+            [series]="proximityChartSeries"
+            [chart]="proximityChartOptions.chart"
+            [xaxis]="proximityChartOptions.xaxis"
+            [yaxis]="proximityChartOptions.yaxis"
+            [title]="proximityChartOptions.title">
+          </apx-chart>
+        </div>
+
+        <div class="content" *ngIf="selectedChart === 'Chart4'">
+          <h1>Light Chart</h1>
+          <apx-chart
+            [series]="lightChartSeries"
+            [chart]="lightChartOptions.chart"
+            [xaxis]="lightChartOptions.xaxis"
+            [yaxis]="lightChartOptions.yaxis"
+            [title]="lightChartOptions.title">
+          </apx-chart>
+        </div>
+      </div>
+
+      <div class="notification-sidebar">
+        <h2 style="display: flex; justify-content: center; align-items: center; position: relative;">
+          <img
+            src="/images/bell.png"
+            alt="Bell Icon"
+            [class.bell-shake]="hasNotifications()"
+            style="position: absolute; left: 0; width: 32px; height: 32px;"
+          />
+          Notifications
+        </h2>
+        <ul *ngIf="selectedChart === 'Chart1'">
+          <li *ngFor="let notification of humidityNotifications.slice().reverse()" [style.color]="notification.type === 'Humidity' ? '#8B0000' : 'black'">
+            {{ notification.message }} - {{ notification.timestamp }}
+          </li>
+        </ul>
+        <ul *ngIf="selectedChart === 'Chart2'">
+          <li *ngFor="let notification of temperatureNotifications.slice().reverse()" [style.color]="'#8B0000'">
+            {{ notification.message }} - {{ notification.timestamp }}
+          </li>
+        </ul>
+        <ul *ngIf="selectedChart === 'Chart3'">
+          <li *ngFor="let notification of proximityNotifications.slice().reverse()" [style.color]="'#8B0000'">
+            {{ notification.message }} - {{ notification.timestamp }}
+          </li>
+        </ul>
+        <ul *ngIf="selectedChart === 'Chart4'">
+          <li *ngFor="let notification of lightNotifications.slice().reverse()" [style.color]="'#8B0000'">
+            {{ notification.message }} - {{ notification.timestamp }}
+          </li>
+        </ul>
+        <button (click)="clearNotifications()" class="clear-button">Clear Notifications</button>
       </div>
     </div>
   </div>
