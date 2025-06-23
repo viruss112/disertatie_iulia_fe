@@ -1,0 +1,69 @@
+<div class="register-container">
+  <form class="register-form" (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <h2>Register</h2>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="username"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="email"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="password"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        [(ngModel)]="firstName"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        [(ngModel)]="lastName"
+        required
+      />
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="errorMessage || successMessage" [ngClass]="{'error-message': errorMessage, 'success-message': successMessage}">
+      {{ errorMessage || successMessage }}
+    </div>
+    <div class="button-group">
+      <button class="btn back-btn" type="button" (click)="onBack()">
+        Back
+      </button>
+      <button class="btn" type="submit" [disabled]="registerForm.invalid">
+        Register
+      </button>
+    </div>
+  </form>
+</div>

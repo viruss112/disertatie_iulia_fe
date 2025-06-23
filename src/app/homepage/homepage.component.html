@@ -1,0 +1,57 @@
+<div class="homepage-container">
+  <div class="sidebar">
+    <h2> Welcome {{ user?.firstName }} {{ user?.lastName }}</h2>
+  </div>
+
+  <div class="charts-container">
+    <!-- First row: Humidity and Temperature -->
+    <div class="row">
+      <div class="content">
+        <h1>Humidity Chart</h1>
+        <apx-chart
+          [series]="chartSeries"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [yaxis]="chartOptions.yaxis"
+          [title]="chartOptions.title">
+        </apx-chart>
+      </div>
+
+      <div class="content">
+        <h1>Temperature Chart</h1>
+        <apx-chart
+          [series]="temperatureChartSeries"
+          [chart]="temperatureChartOptions.chart"
+          [xaxis]="temperatureChartOptions.xaxis"
+          [yaxis]="temperatureChartOptions.yaxis"
+          [title]="temperatureChartOptions.title">
+        </apx-chart>
+      </div>
+    </div>
+
+    <!-- Second row: Proximity and Light -->
+    <div class="row">
+      <div class="content">
+        <h1>Proximity Chart</h1>
+        <apx-chart
+          [series]="proximityChartSeries"
+          [chart]="proximityChartOptions.chart"
+          [xaxis]="proximityChartOptions.xaxis"
+          [yaxis]="proximityChartOptions.yaxis"
+          [title]="proximityChartOptions.title">
+        </apx-chart>
+      </div>
+
+      <div class="content">
+        <h1>Light Chart</h1>
+        <apx-chart
+          [series]="lightChartSeries"
+          [chart]="lightChartOptions.chart"
+          [xaxis]="lightChartOptions.xaxis"
+          [yaxis]="lightChartOptions.yaxis"
+          [title]="lightChartOptions.title">
+        </apx-chart>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+.register-container {
+  display: flex;
+  justify-content: flex-end; /* Align the form to the right */
+  align-items: center; /* Center the form vertically */
+  height: 100vh;
+  overflow: hidden;
+  background: url('/images/smart-house-2.png') no-repeat center center;
+  background-size: cover;
+  font-family: 'Arial', sans-serif;
+}
+
+.register-form {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 300px;
+  text-align: center;
+  margin-right: 2rem; /* Add some spacing from the right edge */
+}
+
+.register-form h2 {
+  margin-bottom: 1rem;
+}
+
+.register-form .form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align labels to the left */
+}
+
+.register-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: left; /* Ensure text is aligned to the left */
+  width: 100%; /* Take full width of the container */
+  font-size: 0.9rem; /* Reduce the font size */
+}
+
+.register-form input {
+  width: 100%;
+  padding: 0.5rem 1rem; /* Equal padding: 0.5rem top/bottom, 1rem left/right */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.register-form .btn {
+  width: 100%;
+  padding: 0.5rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-form .btn:hover {
+  background-color: #0056b3;
+}
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Space between the buttons */
+  gap: 1rem; /* Add spacing between buttons */
+}
+
+.back-btn {
+  background-color: #007bff; /* Match the Register button color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem;
+  cursor: pointer;
+  flex: 1; /* Make both buttons equal width */
+  text-align: center;
+}
+
+.back-btn:hover {
+  background-color: #0056b3; /* Match the Register button hover color */
+}
+
+.btn {
+  flex: 1; /* Make both buttons equal width */
+}
+
+.error-message {
+  color: #d9534f; /* Red for errors */
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  padding-bottom: 10px; /* Add padding to the bottom */
+}
+
+.success-message {
+  color: #5cb85c; /* Green for success */
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: center;
+  padding-bottom: 10px; /* Add padding to the bottom */
+}
