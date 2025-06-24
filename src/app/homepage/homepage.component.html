@@ -68,6 +68,7 @@
             [yaxis]="chartOptions.yaxis"
             [title]="chartOptions.title">
           </apx-chart>
+          <button class="reset-button" (click)="resetChart('Chart1')">Reset Chart</button>
         </div>
 
         <div class="content" *ngIf="selectedChart === 'Chart2'">
@@ -79,6 +80,7 @@
             [yaxis]="temperatureChartOptions.yaxis"
             [title]="temperatureChartOptions.title">
           </apx-chart>
+          <button class="reset-button" (click)="resetChart('Chart2')">Reset Chart</button>
         </div>
 
         <div class="content" *ngIf="selectedChart === 'Chart3'">
@@ -90,6 +92,7 @@
             [yaxis]="proximityChartOptions.yaxis"
             [title]="proximityChartOptions.title">
           </apx-chart>
+          <button class="reset-button" (click)="resetChart('Chart3')">Reset Chart</button>
         </div>
 
         <div class="content" *ngIf="selectedChart === 'Chart4'">
@@ -101,6 +104,7 @@
             [yaxis]="lightChartOptions.yaxis"
             [title]="lightChartOptions.title">
           </apx-chart>
+          <button class="reset-button" (click)="resetChart('Chart4')">Reset Chart</button>
         </div>
       </div>
 

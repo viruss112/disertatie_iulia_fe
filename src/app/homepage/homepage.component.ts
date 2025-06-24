@@ -440,6 +440,72 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  resetChart(chartType: string): void {
+    switch (chartType) {
+      case 'Chart1':
+        this.chartSeries = [
+          {
+            name: 'Humidity',
+            data: [] // Reset data to default (empty or initial values)
+          }
+        ];
+        this.chartOptions = {
+          ...this.chartOptions,
+          xaxis: {
+            ...this.chartOptions.xaxis,
+            categories: [] // Reset categories to default (empty or initial values)
+          }
+        };
+        break;
+      case 'Chart2':
+        this.temperatureChartSeries = [
+          {
+            name: 'Temperature',
+            data: [] // Reset data to default
+          }
+        ];
+        this.temperatureChartOptions = {
+          ...this.temperatureChartOptions,
+          xaxis: {
+            ...this.temperatureChartOptions.xaxis,
+            categories: [] // Reset categories to default
+          }
+        };
+        break;
+      case 'Chart3':
+        this.proximityChartSeries = [
+          {
+            name: 'Proximity',
+            data: [] // Reset data to default
+          }
+        ];
+        this.proximityChartOptions = {
+          ...this.proximityChartOptions,
+          xaxis: {
+            ...this.proximityChartOptions.xaxis,
+            categories: [] // Reset categories to default
+          }
+        };
+        break;
+      case 'Chart4':
+        this.lightChartSeries = [
+          {
+            name: 'Light',
+            data: [] // Reset data to default
+          }
+        ];
+        this.lightChartOptions = {
+          ...this.lightChartOptions,
+          xaxis: {
+            ...this.lightChartOptions.xaxis,
+            categories: [] // Reset categories to default
+          }
+        };
+        break;
+      default:
+        console.warn('Unknown chart type:', chartType);
+    }
+  }
 
 
 

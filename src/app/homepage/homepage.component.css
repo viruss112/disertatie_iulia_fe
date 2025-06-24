@@ -72,7 +72,7 @@
 .sidebar {
   flex: 0 0 250px; /* Fixed width for the sidebar */
   height: 100%; /* Full height */
-  overflow-y: auto; /* Scrollable sidebar if content overflows */
+  overflow: hidden; /* Disable scrolling */
   background: linear-gradient(135deg, #8a2be2, #6495ed); /* Lighter gradient */
   color: white;
   box-shadow: 0 0 5px rgba(106, 17, 203, 0.5); /* Shadow matching the login button */
@@ -147,6 +147,14 @@
 
 .chart-content {
   flex: 3; /* Main chart area */
+  height: 750px; /* Fixed height */
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Center the chart horizontally */
+  align-items: flex-start; /* Center the chart vertically */
+  padding: 20px; /* Add padding for spacing */
+  background-color: transparent; /* Fully transparent background */
+  border: none;
+  box-shadow: none;
 }
 
 .notification-sidebar {
@@ -160,7 +168,7 @@
   padding: 2rem;
   padding-bottom: 0rem; /* Add bottom padding */
   box-shadow: 0 0 5px rgba(106, 17, 203, 0.5); /* Subtle shadow */
-  height: 485px; /* Fixed vertical length */
+  height: 750px; /* Fixed vertical length */
   overflow-y: auto; /* Enable scrolling within the sidebar */
 }
 
@@ -174,16 +182,16 @@
   list-style: none;
   padding: 0;
 }
-
 .notification-sidebar ul li {
-  margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+  background-color: #ffcccc; /* Light red background */
+  color: white; /* White text color */
+  border: 1px solid black; /* Black contour */
   border-radius: 10px; /* Rounded corners */
-  text-align: left;
-  font-size: 1rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  padding: 0.5rem; /* Padding inside the label */
+  margin-bottom: 0.5rem; /* Space between notifications */
+  font-weight: bold; /* Bold text for emphasis */
 }
+
 
 .notification-sidebar ul li:hover {
   background-color: rgba(255, 255, 255, 0.4); /* Slightly lighter on hover */
@@ -235,11 +243,30 @@
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease, transform 0.2s ease;
-  opacity: 0.45; /* 70% transparency */
+  opacity: 0.9; /* 70% transparency */
 }
 
 .clear-button:hover {
   background-color: #6495ed;
   transform: scale(1.05);
   opacity: 1; /* Fully opaque on hover */
+}
+
+.reset-button {
+  display: block; /* Ensure the button is visible */
+  margin: 20px auto; /* Center the button horizontally */
+  padding: 0.5rem 1rem; /* Add padding for better appearance */
+  background-color: #007bff; /* Button color */
+  color: white; /* Text color */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.reset-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.05); /* Slightly enlarge on hover */
 }
