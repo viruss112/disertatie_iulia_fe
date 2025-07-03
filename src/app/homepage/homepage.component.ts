@@ -345,8 +345,8 @@ export class HomepageComponent implements OnInit {
 
   humidityOffset: number = 55;
   temperatureOffset: number = 28.5;
-  proximityOffset: number = 80;
-  lightOffset: number = 950;
+  proximityOffset: number = 0;
+  lightOffset: number = 930;
 
   selectChart(chart: string): void {
     this.selectedChart = chart; // Update the selected chart
